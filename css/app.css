@@ -1,0 +1,24 @@
+
+.bg-body{
+    background-color: #212529 !important;
+}
+
+.bg-titulo{
+    background-color: #292C30;
+}
+
+
+.titulo h1{
+    font-family: "Bitcount Single", system-ui;
+    font-weight: 400;
+}
+
+.fuente-botones{
+    font-family: "Concert One", sans-serif;
+    font-weight: 100;
+}
+
+.fuente-botones2{
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+}
