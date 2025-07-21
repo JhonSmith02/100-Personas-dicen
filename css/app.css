@@ -1,7 +1,44 @@
 
 .bg-body{
-    background-color: #212529 !important;
+    background-color: #212529 ;
+    /* background-color: #212529 !important; */
 }
+
+.body{
+    background-image: url('../src/img2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-position: center; */
+}
+.body2{
+    background-image: url('../src/img2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.bg-blur{
+    backdrop-filter: blur(5px);
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bg-blur-tp{
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* .text-neon{
+    color: #ffffff;
+  text-shadow:
+    0 0 5px #ffffff,
+    0 0 10px #ffffff,
+    0 0 20px #ffffff,
+    0 0 40px #ffffff,
+    0 0 60px #e0e0e0,
+    0 0 80px #cfcfcf;
+  font-weight: bold;
+} */
 
 .bg-titulo{
     background-color: #292C30;
