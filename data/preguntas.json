@@ -1,0 +1,48 @@
+[
+    {
+        "id": 1,
+        "texto": "¿Qué hace que una llamada de cobranza se sienta fácil de atender?",
+        "respuestas": [
+            {"texto": "Es corta y clara", "pts": 26},
+            {"texto": "Me explican bien que debo", "pts": 22},
+            {"texto": "Me dan opciones de pago", "pts": 20},
+            {"texto": "No me pasan de una persona a otra", "pts": 16},
+            {"texto": "Me dejan hablar", "pts": 10},
+            {"texto": "Me llaman en un buen momento", "pts": 6}
+        ]
+    }, 
+    {
+        "id": 2,
+        "texto": "¿Qué esperas cuando te llaman para gestionar una deuda? (Valor: Cercano + Confiable",
+        "respuestas": [
+            {"texto": "Que me hablen con respeto", "pst": 28},
+            {"texto": "Que me escuchen", "pst": 24},
+            {"texto": "Que no me presionen", "pst": 20},
+            {"texto": "Que entiendan mi situacion", "pst": 14},
+            {"texto": "que me ofrezcan soluciones reales", "pst": 14}
+        ]
+    },
+    {
+        "id": 3,
+        "texto": "¿Qué actitud de un asesor te genera confianza en una llamada de cobranza? (Valor: Confiable)",
+        "respuestas": [
+            {"texto": "Me habla con transparencia", "pst": 30},
+            {"texto": "Me da información concreta", "pst": 22},
+            {"texto": "Me orienta sin juzgar", "pst": 20},
+            {"texto": "Me ofrece alternativas legales", "pst": 16},
+            {"texto": "Tiene un trato profesinal", "pst": 12}
+        ]
+    },
+    {
+        "id": 4,
+        "texto": "¿Qué te hace sentir que la llamada de cobranza fue oportuna?",
+        "respuestas": [
+            {"texto": "Me contactaron antes de la fecha limite", "pst": 28},
+            {"texto": "Me ayudaron a evitar una sanción", "pst": 24},
+            {"texto": "Me ofrecieron acuedos a tiempo", "pst": 20},
+            {"texto": "Me informaron con antelación", "pst": 24},
+            {"texto": "Me ayudaron justo cuando podia pagar", "pst": 12}
+        ]
+    }
+
+]

@@ -59,3 +59,29 @@
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
 }
+
+
+/* css a la tabla */
+
+/* Animación para nuevas respuestas */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.respuesta-fila {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Mejoras de diseño */
+
+
+.border {
+    /* border: 1px solid rgba(255, 255, 255, 0.2) !important; */
+    border-radius: 10px;
+}
+
+/* Alineación vertical del contenido */
+.d-flex.align-items-center {
+    min-height: 80px;
+}
