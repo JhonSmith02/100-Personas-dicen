@@ -87,7 +87,8 @@
 // }
 
 
-ner('DOMContentLoaded', async () => {
+// js/respuestas.js
+document.addEventListener('DOMContentLoaded', async () => {
     // 1. Obtener ID de pregunta desde la URL
     const path = window.location.pathname;
     const filename = path.split('/').pop();
