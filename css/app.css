@@ -3,6 +3,7 @@
     --color-primario: #7F68AC;
     --color-secundario: #5DB491;
     --color-tercero: #F1ACCA;
+    --color-cuarto: #F6D95F;
     --color-porcentaje: #ff6b6b;
 }
 
@@ -131,10 +132,10 @@
     line-height: 1.4;
 }
 
-.response-porcent{ 
+.response-percent{ 
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--color-tercero);
+    color: var(--color-cuarto);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -156,13 +157,14 @@
 
 .progress-bar{
     height: 100%;
-    background: linear-gradient(90deg, var(--color-porcentaje), #ff8e8e);
+    background: linear-gradient(90deg, #ff8e8e, var(--color-tercero));
     border-radius: 12px;
     transition: width 1s ease-in-out;
 }
 
 .btn-custom{
     background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+    color: white;
     border: none;
     border-radius: 50px;
     padding: 12px 30px;
@@ -176,6 +178,7 @@
 .btn-custom:hover{
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    color: var(--color-cuarto);
 }
 
 .btn-custom:active{
