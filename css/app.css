@@ -1,4 +1,12 @@
 
+:root{
+    --color-primario: #7F68AC;
+    --color-secundario: #5DB491;
+    --color-tercero: #F1ACCA;
+    --color-porcentaje: #ff6b6b;
+}
+
+
 .bg-body{
     background-color: #212529 ;
     /* background-color: #212529 !important; */
@@ -61,27 +69,166 @@
 }
 
 
-/* css a la tabla */
+/* css a las card */
 
-/* Animación para nuevas respuestas */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.card-container{
+    perspective: 1000px;
+    height: 200px;
+    margin-bottom: 25px;
 }
 
-.respuesta-fila {
-    animation: fadeIn 0.5s ease-out;
+.card-flip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Mejoras de diseño */
-
-
-.border {
-    /* border: 1px solid rgba(255, 255, 255, 0.2) !important; */
-    border-radius: 10px;
+.card-flip.flipped{
+    transform: rotateY(180deg);
 }
 
-/* Alineación vertical del contenido */
-.d-flex.align-items-center {
-    min-height: 80px;
+.card-front, .card-back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.card-front{
+    backdrop-filter: blur(5px);
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    background-color: rgba(255, 255, 255, 0.966);
+}
+
+.card-back{
+    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.response-number{
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.response-text{
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.response-porcent{ 
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-tercero);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-front h3{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+
+.contador-progreso{
+    height: 25px;
+    background: rgba(255,  255, 255, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar{
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-porcentaje), #ff8e8e);
+    border-radius: 12px;
+    transition: width 1s ease-in-out;
+}
+
+.btn-custom{
+    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-custom:active{
+    transform: translateY(1px);
+}
+
+.btn.outline-custom{
+    border: 2px solid white;
+    color: black;
+    background: transparent;
+}
+
+.btn-outline-custom:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.stats-card{
+    /* backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.877); */
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+
+/* .flip-icon{
+
+} */
+
+.resp-contador{
+    font-size: 1.1rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.card-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.badge-question{
+    background: linear-gradient(135deg, var(--color-porcentaje), #ff8e8e);
+    font-size: 1.2rem;
+    padding: 8px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-nav{
+    min-width: 180px;
+    margin: 0 10px;
 }

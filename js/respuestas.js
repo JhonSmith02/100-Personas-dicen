@@ -1,240 +1,408 @@
-// document.addEventListener('DOMContentLoaded', async  () => {
-//     const res = await fetch('/data/preguntas.json');
-//     const preguntas = await res.json();
+// const questionData = {
+//     id: 1,
+//     texto: "¿Qué hace que una llamada de cobranza se sienta fácil de atender?",
+//     respuestas: [
+//         { "texto": "Es corta y clara", "pts": 26 },
+//         { "texto": "Me explican bien que debo", "pts": 22 },
+//         { "texto": "Me dan opciones de pago", "pts": 20 },
+//         { "texto": "No me pasan de una persona a otra", "pts": 16 },
+//         { "texto": "Me dejan hablar", "pts": 10 },
+//         { "texto": "Me llaman en un buen momento", "pts": 6 }
+//     ]
+// };
 
-//     const respuestas = preguntas.find( p => p.id === 1).respuestas;
+// //ordenar los datos por puntos de mayor a menor
+// const sortedResponses = [...questionData.respuestas].sort((a, b) => b.pts - a.pts);
 
-//     const btnNext = document.getElementById('btn-next');
-//     const btnPrev = document.getElementById('btn-prev');
-//     const contenedor = document.querySelector('.res-container');
 
-//     let currentIndex = 0;
+// //Elementos del dom
+// const cardsContainer = document.getElementById('cards-container');
+// const respuestas_mostradas = document.getElementById('respuestas-mostradas');
+// const respuestas_restantes = document.getElementById('respuestas-restantes');
+// const porcentaje_total = document.getElementById('porcentaje-total');
+// const progress_bar = document.getElementById('progress-bar');
+// const btnNext = document.getElementById('btn-next');
+// const btnPrev = document.getElementById('btn-prev');
+// const btnShowAll = document.getElementById('btn-mostrar-todas');
+// const btnHideAll = document.getElementById('btn-ocultar-todas');
+// const reveladas = document.getElementById('reveladas');
+// const respuesta_top = document.getElementById('respuesta-top');
+// const porcentaje_promedio = document.getElementById('porcentaje-promedio');
 
-//     function mostrarIndice(idx){
-//         contenedor.innerHTML = '';
-//         const { texto, pts} = respuestas[idx];
-//         crearRespuestas(idx + 1, texto, pts);
 
-//         btnPrev.disabled = idx === 0;
-//         btnNext.disabled = idx === respuestas.length -1;
-//     }
+// // Variables de estado
+// let currentIndex = 0;
+// let shownResponses = [];
+// let revealedResponses = 0;
+// let accumulatedPercent = 0;
 
-//     btnNext.addEventListener('click', () => {
-//         if (currentIndex < respuestas.length - 1){
-//             currentIndex++;
-//             mostrarIndice(currentIndex);
+// // Función para crear una tarjeta de respuesta
+// function createResponseCard(response, index) {
+//     const card = document.createElement('div');
+//     card.className = 'card-container';
+
+//     card.innerHTML = `
+//                     <div class="card-flip" data-index="${index}">
+//                         <div class="card-front">
+//                             <div class="response-number">${index + 1}</div>
+//                             <h3>Haz clic para revelar</h3>
+//                             <div class="mt-2">
+//                                 <i class="fas fa-sync-alt flip-icon"></i>
+//                             </div>
+//                         </div>
+//                         <div class="card-back">
+//                             <div class="response-text">${response.texto}</div>
+//                             <div class="response-percent">${response.pts}%</div>
+//                             <div class="resp-contador">de las personas</div>
+//                         </div>
+//                     </div>
+//                 `;
+
+//     // Añadir evento de clic para voltear
+//     const flipCard = card.querySelector('.card-flip');
+//     flipCard.addEventListener('click', function () {
+//         this.classList.toggle('flipped');
+
+//         // Actualizar conteo de respuestas reveladas
+//         if (this.classList.contains('flipped')) {
+//             revealedResponses++;
+//         } else {
+//             revealedResponses--;
+//         }
+//         reveladasElement.textContent = revealedResponses;
+
+//         // Actualizar respuesta más popular
+//         if (revealedResponses > 0) {
+//             respuestaTop.textContent = sortedResponses[0].texto.substring(0, 20) + '...';
+//         } else {
+//             respuestaTop.textContent = '-';
 //         }
 //     });
 
-//     btnPrev.addEventListener('click', () => {
-//         if(currentIndex > 0){
-//             currentIndex--;
-//             mostrarIndice(currentIndex);
-//         }
-//     });
-
-//     mostrarIndice(currentIndex);
-// });
-
-
-// function crearRespuestas(numero, texto, pts) {
-
-//     const row = document.createElement('div'); //Creamos un elemento
-//     row.className = 'row text-white text-center mt-4'; //Le pasamos las clases al elemento
-
-//     //Creamos las columnas vacias
-//     const colLeft = document.createElement('div');
-//     colLeft.className = 'col-lg-2';
-//     const colRight  = document.createElement('div');
-//     colRight.className = 'col-lg-2';
-
-//     //Numero de respuesta
-//     const colNumero = document.createElement('div'); // div del h3
-//     colNumero.className = 'col-lg-1 border bg-blur';
-
-//     const h3Numero = document.createElement('h3'); //El h3
-//     h3Numero.textContent = numero; //contenido del h3
-
-//     colNumero.appendChild(h3Numero); //ingreso el h3 en el div
-
-//     //texto de la respuesta
-//     const colTexto = document.createElement('div');
-//     colTexto.className = 'col-lg-6 border bg-blur';
-
-//     const pTexto = document.createElement('h5');
-//     pTexto.textContent = texto;
-
-//     colTexto.appendChild(pTexto);
-
-//     //Puntaje o cantidad de personas
-//     const colPts = document.createElement('div');
-//     colPts.className = 'col-lg-1 border bg-blur';
-
-//     const h3Pts = document.createElement('h3');
-//     h3Pts.textContent = pts;
-
-//     colPts.appendChild(h3Pts);
-
-//     //Agregamos las columnas al row
-//     row.appendChild(colLeft);
-//     row.appendChild(colNumero);
-//     row.appendChild(colTexto);
-//     row.appendChild(colPts);
-//     row.appendChild(colRight);
-
-//     // Insertamos el div creado al contenedor principal
-//     document.querySelector('.res-container').appendChild(row);
+//     return card;
 // }
 
+// // Función para mostrar la siguiente respuesta
+// function showNextResponse() {
+//     if (currentIndex < sortedResponses.length) {
+//         const response = sortedResponses[currentIndex];
 
-// js/respuestas.js
-document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Obtener ID de pregunta desde la URL
-    const path = window.location.pathname;
-    const filename = path.split('/').pop();
-    const match = filename.match(/pregunta(\d+)\.html/);
-    
-    if (!match) {
-        console.error('No se pudo determinar el ID de la pregunta');
-        return;
-    }
-    
-    const questionId = parseInt(match[1], 10);
-    
-    // 2. Cargar datos de preguntas
-    const res = await fetch('/data/preguntas.json');
-    const preguntas = await res.json();
-    
-    // 3. Buscar pregunta específica
-    const pregunta = preguntas.find(p => p.id === questionId);
-    
-    if (!pregunta) {
-        console.error(`No se encontró la pregunta con ID ${questionId}`);
-        return;
-    }
-    
-    // 4. Ordenar respuestas por puntos (de mayor a menor)
-    const respuestas = pregunta.respuestas
-        .map(r => ({ 
-            texto: r.texto, 
-            pts: r.pts || r.pst || 0 // Manejar propiedades diferentes
-        }))
-        .sort((a, b) => b.pts - a.pts);
-    
-    // 5. Referencias a elementos DOM
-    const btnNext = document.getElementById('btn-next');
-    const btnPrev = document.getElementById('btn-prev');
-    const contenedor = document.querySelector('.res-container');
-    const tituloPregunta = document.querySelector('header h1');
-    
-    // 6. Actualizar título de la pregunta
-    if (tituloPregunta) {
-        tituloPregunta.textContent = pregunta.texto;
-    }
-    
-    let currentIndex = 0;
-    
-    // 7. Función para mostrar siguiente respuesta
-    function mostrarSiguiente() {
-        if (currentIndex < respuestas.length) {
-            const respuesta = respuestas[currentIndex];
-            crearFilaRespuesta(respuesta, currentIndex + 1);
-            currentIndex++;
-            
-            // Actualizar estado de botones
-            btnPrev.disabled = false;
-            if (currentIndex === respuestas.length) {
-                btnNext.disabled = true;
-            }
-        }
-    }
-    
-    // 8. Función para ocultar última respuesta
-    function ocultarAnterior() {
-        if (currentIndex > 0) {
-            const filas = contenedor.querySelectorAll('.respuesta-fila');
-            if (filas.length > 0) {
-                contenedor.removeChild(filas[filas.length - 1]);
-                currentIndex--;
+//         // Crear y agregar la tarjeta
+//         const responseCard = createResponseCard(response, currentIndex);
+//         cardsContainer.appendChild(responseCard);
+
+//         // Animación de entrada
+//         responseCard.style.opacity = '0';
+//         responseCard.style.transform = 'translateY(20px)';
+//         responseCard.style.transition = 'all 0.5s ease';
+
+//         setTimeout(() => {
+//             responseCard.style.opacity = '1';
+//             responseCard.style.transform = 'translateY(0)';
+//         }, 50);
+
+//         // Actualizar estadísticas
+//         accumulatedPercent += response.pts;
+//         shownResponses.push(response);
+//         currentIndex++;
+
+//         updateStats();
+//         updateButtonStates();
+//     }
+// }
+
+// // Función para mostrar la respuesta anterior
+// function showPrevResponse() {
+//     if (shownResponses.length > 0) {
+//         // Eliminar la última respuesta mostrada
+//         const lastCard = cardsContainer.lastChild;
+//         cardsContainer.removeChild(lastCard);
+
+//         // Actualizar estadísticas
+//         const removedResponse = shownResponses.pop();
+//         accumulatedPercent -= removedResponse.pts;
+//         currentIndex--;
+
+//         updateStats();
+//         updateButtonStates();
+
+//         // Actualizar conteo de reveladas si es necesario
+//         const flippedCards = document.querySelectorAll('.card-flip.flipped');
+//         revealedResponses = flippedCards.length;
+//         reveladasElement.textContent = revealedResponses;
+//     }
+// }
+
+// // Función para mostrar todas las respuestas
+// function showAllResponses() {
+//     while (currentIndex < sortedResponses.length) {
+//         showNextResponse();
+//     }
+// }
+
+// // Función para voltear todas las tarjetas
+// function flipAllCards(flip) {
+//     const cards = document.querySelectorAll('.card-flip');
+//     cards.forEach(card => {
+//         if (flip) {
+//             card.classList.add('flipped');
+//         } else {
+//             card.classList.remove('flipped');
+//         }
+//     });
+
+//     revealedResponses = flip ? cards.length : 0;
+//     revealedCount.textContent = revealedResponses;
+
+//     if (revealedResponses > 0) {
+//         topAnswer.textContent = sortedResponses[0].texto.substring(0, 20) + '...';
+//     } else {
+//         topAnswer.textContent = '-';
+//     }
+// }
+
+// // Actualizar estadísticas
+// function updateStats() {
+//     shownCount.textContent = shownResponses.length;
+//     remainingCount.textContent = sortedResponses.length - shownResponses.length;
+//     totalPercent.textContent = `${accumulatedPercent}%`;
+
+//     // Actualizar barra de progreso global
+//     const progressPercent = (shownResponses.length / sortedResponses.length) * 100;
+//     progressBar.style.width = `${progressPercent}%`;
+
+//     // Actualizar porcentaje promedio
+//     if (shownResponses.length > 0) {
+//         const avg = accumulatedPercent / shownResponses.length;
+//         averagePercent.textContent = `${avg.toFixed(1)}%`;
+//     } else {
+//         averagePercent.textContent = '0%';
+//     }
+// }
+
+// // Actualizar estado de los botones
+// function updateButtonStates() {
+//     btnPrev.disabled = shownResponses.length === 0;
+//     btnNext.disabled = shownResponses.length === sortedResponses.length;
+// }
+
+// // Event Listeners
+// btnNext.addEventListener('click', showNextResponse);
+// btnPrev.addEventListener('click', showPrevResponse);
+// btnShowAll.addEventListener('click', () => {
+//     showAllResponses();
+//     flipAllCards(true);
+// });
+// btnHideAll.addEventListener('click', () => flipAllCards(false));
+
+// // Inicializar
+// updateButtonStates();
+
+// // Mostrar las primeras 2 respuestas automáticamente
+// setTimeout(() => showNextResponse(), 300);
+// setTimeout(() => showNextResponse(), 800);
+
+
+   document.addEventListener('DOMContentLoaded', function() {
+            const questionData = {
+                id: 1,
+                texto: "¿Qué hace que una llamada de cobranza se sienta fácil de atender?",
+                respuestas: [
+                    { "texto": "Es corta y clara", "pts": 26 },
+                    { "texto": "Me explican bien que debo", "pts": 22 },
+                    { "texto": "Me dan opciones de pago", "pts": 20 },
+                    { "texto": "No me pasan de una persona a otra", "pts": 16 },
+                    { "texto": "Me dejan hablar", "pts": 10 },
+                    { "texto": "Me llaman en un buen momento", "pts": 6 }
+                ]
+            };
+
+            // Ordenar respuestas por puntos (mayor a menor)
+            const sortedResponses = [...questionData.respuestas].sort((a, b) => b.pts - a.pts);
+
+            // Elementos del DOM
+            const cardsContainer = document.getElementById('cards-container');
+            const respuestasMostradas = document.getElementById('respuestas-mostradas');
+            const respuestasRestantes = document.getElementById('respuestas-restantes');
+            const porcentajeTotal = document.getElementById('porcentaje-total');
+            const progressBar = document.getElementById('progress-bar');
+            const btnNext = document.getElementById('btn-next');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnShowAll = document.getElementById('btn-show-all');
+            const btnHideAll = document.getElementById('btn-hide-all');
+            const reveladasElement = document.getElementById('reveladas');
+            const respuestaTop = document.getElementById('respuesta-top');
+            const porcentajePromedio = document.getElementById('porcentaje-promedio');
+
+            // Variables de estado
+            let currentIndex = 0;
+            let shownResponses = [];
+            let revealedResponses = 0;
+            let accumulatedPercent = 0;
+
+            // Función para crear una tarjeta de respuesta
+            function createResponseCard(response, index) {
+                const card = document.createElement('div');
+                card.className = 'card-container';
                 
-                // Actualizar estado de botones
-                btnNext.disabled = false;
-                if (currentIndex === 0) {
-                    btnPrev.disabled = true;
+                card.innerHTML = `
+                    <div class="card-flip" data-index="${index}">
+                        <div class="card-front">
+                            <div class="response-number">${index + 1}</div>
+                            <h3>Haz clic para revelar</h3>
+                            <div class="mt-2">
+                                <i class="fas fa-sync-alt flip-icon"></i>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="response-text">${response.texto}</div>
+                            <div class="response-percent">${response.pts}%</div>
+                            <div class="resp-contador">de las personas</div>
+                        </div>
+                    </div>
+                `;
+
+                // Añadir evento de clic para voltear
+                const flipCard = card.querySelector('.card-flip');
+                flipCard.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                    
+                    // Actualizar conteo de respuestas reveladas
+                    if (this.classList.contains('flipped')) {
+                        revealedResponses++;
+                    } else {
+                        revealedResponses--;
+                    }
+                    reveladasElement.textContent = revealedResponses;
+                    
+                    // Actualizar respuesta más popular
+                    if (revealedResponses > 0) {
+                        respuestaTop.textContent = sortedResponses[0].texto.substring(0, 20) + '...';
+                    } else {
+                        respuestaTop.textContent = '-';
+                    }
+                });
+                
+                return card;
+            }
+
+            // Función para mostrar la siguiente respuesta
+            function showNextResponse() {
+                if (currentIndex < sortedResponses.length) {
+                    const response = sortedResponses[currentIndex];
+                    
+                    // Crear y agregar la tarjeta
+                    const responseCard = createResponseCard(response, currentIndex);
+                    cardsContainer.appendChild(responseCard);
+                    
+                    // Animación de entrada
+                    responseCard.style.opacity = '0';
+                    responseCard.style.transform = 'translateY(20px)';
+                    responseCard.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        responseCard.style.opacity = '1';
+                        responseCard.style.transform = 'translateY(0)';
+                    }, 50);
+                    
+                    // Actualizar estadísticas
+                    accumulatedPercent += response.pts;
+                    shownResponses.push(response);
+                    currentIndex++;
+                    
+                    updateStats();
+                    updateButtonStates();
                 }
             }
-        }
-    }
-    
-    // 9. Función para crear fila de respuesta
-    function crearFilaRespuesta(respuesta, numero) {
-        const row = document.createElement('div');
-        row.className = 'row text-white text-center mt-4 respuesta-fila';
-        row.style.animation = 'fadeIn 0.5s ease-out';
-        
-        // Columnas laterales para margen
-        const colLeft = document.createElement('div');
-        colLeft.className = 'col-lg-2';
-        
-        const colRight = document.createElement('div');
-        colRight.className = 'col-lg-2';
-        
-        // Columna de número
-        const colNumero = document.createElement('div');
-        colNumero.className = 'col-lg-1 border bg-blur d-flex align-items-center justify-content-center';
-        
-        const h3Numero = document.createElement('h3');
-        h3Numero.className = 'mb-0';
-        h3Numero.textContent = numero;
-        
-        colNumero.appendChild(h3Numero);
-        
-        // Columna de texto
-        const colTexto = document.createElement('div');
-        colTexto.className = 'col-lg-6 border bg-blur d-flex align-items-center';
-        
-        const pTexto = document.createElement('h5');
-        pTexto.className = 'mb-0';
-        pTexto.textContent = respuesta.texto;
-        
-        colTexto.appendChild(pTexto);
-        
-        // Columna de puntos
-        const colPts = document.createElement('div');
-        colPts.className = 'col-lg-1 border bg-blur d-flex align-items-center justify-content-center';
-        
-        const h3Pts = document.createElement('h3');
-        h3Pts.className = 'mb-0';
-        h3Pts.textContent = respuesta.pts;
-        
-        colPts.appendChild(h3Pts);
-        
-        // Construir fila
-        row.appendChild(colLeft);
-        row.appendChild(colNumero);
-        row.appendChild(colTexto);
-        row.appendChild(colPts);
-        row.appendChild(colRight);
-        
-        // Agregar al contenedor
-        contenedor.appendChild(row);
-        
-        // Scroll a la nueva respuesta
-        row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-    
-    // 10. Event listeners para botones
-    btnNext.addEventListener('click', mostrarSiguiente);
-    btnPrev.addEventListener('click', ocultarAnterior);
-    
-    // 11. Estado inicial de botones
-    btnPrev.disabled = true;
-    if (respuestas.length === 0) {
-        btnNext.disabled = true;
-    }
-    
-    // 12. Mostrar primera respuesta automáticamente
-    if (respuestas.length > 0) {
-        mostrarSiguiente();
-    }
-});
+
+            // Función para mostrar la respuesta anterior
+            function showPrevResponse() {
+                if (shownResponses.length > 0) {
+                    // Eliminar la última respuesta mostrada
+                    const lastCard = cardsContainer.lastChild;
+                    cardsContainer.removeChild(lastCard);
+                    
+                    // Actualizar estadísticas
+                    const removedResponse = shownResponses.pop();
+                    accumulatedPercent -= removedResponse.pts;
+                    currentIndex--;
+                    
+                    updateStats();
+                    updateButtonStates();
+                    
+                    // Actualizar conteo de reveladas si es necesario
+                    const flippedCards = document.querySelectorAll('.card-flip.flipped');
+                    revealedResponses = flippedCards.length;
+                    reveladasElement.textContent = revealedResponses;
+                }
+            }
+
+            // Función para mostrar todas las respuestas
+            function showAllResponses() {
+                while (currentIndex < sortedResponses.length) {
+                    showNextResponse();
+                }
+            }
+
+            // Función para voltear todas las tarjetas
+            function flipAllCards(flip) {
+                const cards = document.querySelectorAll('.card-flip');
+                cards.forEach(card => {
+                    if (flip) {
+                        card.classList.add('flipped');
+                    } else {
+                        card.classList.remove('flipped');
+                    }
+                });
+                
+                revealedResponses = flip ? cards.length : 0;
+                reveladasElement.textContent = revealedResponses;
+                
+                if (revealedResponses > 0) {
+                    respuestaTop.textContent = sortedResponses[0].texto.substring(0, 20) + '...';
+                } else {
+                    respuestaTop.textContent = '-';
+                }
+            }
+
+            // Actualizar estadísticas
+            function updateStats() {
+                respuestasMostradas.textContent = shownResponses.length;
+                respuestasRestantes.textContent = sortedResponses.length - shownResponses.length;
+                porcentajeTotal.textContent = `${accumulatedPercent}%`;
+                
+                // Actualizar barra de progreso global
+                const progressPercent = (shownResponses.length / sortedResponses.length) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                // Actualizar porcentaje promedio
+                if (shownResponses.length > 0) {
+                    const avg = accumulatedPercent / shownResponses.length;
+                    porcentajePromedio.textContent = `${avg.toFixed(1)}%`;
+                } else {
+                    porcentajePromedio.textContent = '0%';
+                }
+            }
+
+            // Actualizar estado de los botones
+            function updateButtonStates() {
+                btnPrev.disabled = shownResponses.length === 0;
+                btnNext.disabled = shownResponses.length === sortedResponses.length;
+            }
+
+            // Event Listeners
+            btnNext.addEventListener('click', showNextResponse);
+            btnPrev.addEventListener('click', showPrevResponse);
+            btnShowAll.addEventListener('click', () => {
+                showAllResponses();
+                flipAllCards(true);
+            });
+            btnHideAll.addEventListener('click', () => flipAllCards(false));
+
+            // Inicializar
+            updateButtonStates();
+            
+            // Mostrar las primeras 2 respuestas automáticamente
+            setTimeout(() => showNextResponse(), 300);
+            setTimeout(() => showNextResponse(), 800);
+        });
