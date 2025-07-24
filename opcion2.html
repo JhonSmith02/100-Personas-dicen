@@ -27,81 +27,62 @@
         </div>
     </header>
 
-    <main class="container mt-5">
-        
-        <div class="row">
-            <div class="col-lg-8">
+    <main class="container mt-4">
+
+        <div class="important-card">
+            <button class="btn btn-volver" onclick="window.location.href='index.html'">Volver</button>
+            <h3 class="text-center mb-3"><i class="fas fa-info-circle me-2"></i>IMPORTANTE</h3>
+            <p class="text-center">Para ver qué respuesta tiene cada tarjeta, debes darle clic y esta revelará lo que
+                dicen las personas</p>
+            <div class="text-center mt-3">
+                <i class="fas fa-hand-pointer flip-icon"></i>
+                <p>Clic a las tarjetas para voltearlas!!!</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <!-- estadisticas del card -->
                 <div class="card stats-card">
-                    <div class="row">
+                    <div class="row text-center">
                         <!-- contador de respuestas -->
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-center mb-4">
                             <div class="display-4 fw-bold" id="respuestasReveladas">0</div>
                             <div class="resp-contador">Respuestas Reveladas</div>
                         </div>
 
                         <!-- el porcentaje -->
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-center mb-4">
                             <div class="display-4 fw-bold" id="porcentaje-total">0%</div>
                             <div class="resp-contador">Porcentaje Total</div>
                         </div>
 
                         <!-- cuantas respuestas faltan por revelar -->
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-center mb-4">
                             <div class="display-4 fw-bold" id="respuestas-restantes">6</div>
                             <div class="resp-contador">Respuestas Restantes</div>
                         </div>
                     </div>
 
                     <!-- barra de progreso -->
-                    <div class="contador-progreso mt-4">
+                    <div class="contador-progreso mt-3">
                         <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
                     </div>
+
+                    <!-- botones mostrar y ocultar -->
+                     <div class="btn-container">
+                        <button class="btn btn-custom" id="btn-show-all">Mostrar Todas</button>
+                        <button class="btn btn-outline-custom" id="btn-hide-all" >Ocultar Todas</button>
+                     </div>
                 </div>
-                
+
                 <!-- contenedor de las card -->
                 <div class="card-grid mt-4" id="cards-container">
                     <!-- Las tarjetas se insertarán aquí -->
                 </div>
             </div>
 
-            <!-- estadisticas laterales -->
-            <div class="col-lg-4">
-                <div class="card stats-card">
-                    <h3 class="text-center mb-4">Estadísticas</h3>
 
-                    <div class="d-flex justify-content-between mb-3">
-                        <span>Respuestas Reveladas:</span>
-                        <span id="reveladas">0</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                        <span>Respuesta más popular:</span>
-                        <span id="respuesta-top">-</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                        <span>Porcentaje Promedio:</span>
-                        <span id="porcentaje-promedio">0%</span>
-                    </div>
-
-                    <!-- botones de revelar y ocultar -->
-                    <div class="mt-4 text-center">
-                        <button id="btn-show-all" class="btn btn-custom w-100 mb-3">Mostrar Todas</button>
-                        <button id="btn-hide-all" class="btn btn-outline-custom w-100">Ocultar Todas</button>
-                    </div>
-                </div>
-
-                <div class="card stats-card mt-4">
-                    <h3 class="text-center mb-4">IMPORTANTE</h3>
-                    <p class="text-center">Para ver qué respuesta tiene cada tarjeta, debes darle clic y esta revelará lo que dicen las personas</p>
-
-                    <div class="text-center mt-3">
-                        <i class="fas fa-hand-pointer flip-icon"></i>
-                        <p>Clic a las tarjetas para voltearlas!!!</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 

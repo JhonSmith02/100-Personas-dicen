@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressBar = document.getElementById('progress-bar');
     const btnShowAll = document.getElementById('btn-show-all');
     const btnHideAll = document.getElementById('btn-hide-all');
-    const respuestaTop = document.getElementById('respuesta-top');
-    const porcentajePromedio = document.getElementById('porcentaje-promedio');
 
     // Variables de estado
     let accumulatedPercent = 0;
@@ -95,27 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Actualizar estadísticas
         revealedCards = flip ? cards.length : 0;
         accumulatedPercent = flip ? sortedResponses.reduce((sum, r) => sum + r.pts, 0) : 0;
-        totalPeople = flip ? sortedResponses.reduce((sum, r) => sum + r.pts, 0) : 0;
-
-        updateStats();
-    }
-
-
-    // Función para voltear todas las tarjetas
-    function flipAllCards(flip) {
-        const cards = document.querySelectorAll('.card-flip');
-        cards.forEach(card => {
-            if (flip) {
-                card.classList.add('flipped');
-            } else {
-                card.classList.remove('flipped');
-            }
-        });
-
-        // Actualizar estadísticas
-        revealedCards = flip ? cards.length : 0;
-        accumulatedPercent = flip ? sortedResponses.reduce((sum, r) => sum + r.pts, 0) : 0;
-        // totalPeople = flip ? sortedResponses.reduce((sum, r) => sum + r.pts, 0) : 0;
 
         updateStats();
     }
@@ -125,29 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
         respuestasReveladas.textContent = revealedCards;
         respuestasRestantes.textContent = sortedResponses.length - revealedCards;
         porcentajeTotal.textContent = `${accumulatedPercent}%`;
-        // personasRepresentadas.textContent = totalPeople;
 
         // Actualizar barra de progreso
         const progressPercent = (revealedCards / sortedResponses.length) * 100;
         progressBar.style.width = `${progressPercent}%`;
-
-        // Actualizar porcentaje promedio
-        if (revealedCards > 0) {
-            const avg = accumulatedPercent / revealedCards;
-            porcentajePromedio.textContent = `${avg.toFixed(1)}%`;
-        } else {
-            porcentajePromedio.textContent = '0%';
-        }
-
-        // Actualizar respuesta más popular
-        if (revealedCards > 0) {
-            respuestaTop.textContent = sortedResponses[0].texto;
-        } else {
-            respuestaTop.textContent = '-';
-        }
     }
-
-
 
     // Event Listeners
     btnShowAll.addEventListener('click', () => flipAllCards(true));
@@ -156,6 +115,4 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializar
     generateAllCards();
     updateStats();
-
-
 });
